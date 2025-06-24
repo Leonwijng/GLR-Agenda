@@ -1,50 +1,110 @@
-# Welcome to your Expo app 👋
+# GLR Agenda App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Een moderne, donkere agenda-app gebouwd met React Native, Expo en NativeWind.
 
-## Get started
+## 🌟 Features
 
-1. Install dependencies
+- **🎨 Modern Dark Design**: Stijlvolle donkere interface met lime-groene accenten
+- **✨ Beautiful Loading Screen**: Animated loading screen met GLR logo
+- **📱 Responsive**: Werkt perfect op alle schermformaten
+- **🔄 Pull to Refresh**: Trek naar beneden om je agenda te vernieuwen
+- **📅 Smart Filtering**: Filter tussen vandaag en aankomende evenementen
+- **🎯 Clean Architecture**: Goed georganiseerde mappenstructuur
 
+## 📁 Project Structure
+
+```
+glragenda/
+├── app/                          # Main app screens (Expo Router)
+│   ├── _layout.tsx              # Root layout with loading screen
+│   ├── index.tsx                # Home page entry point
+│   └── +not-found.tsx           # 404 page
+├── components/
+│   ├── common/                  # Reusable common components
+│   │   └── LoadingScreen.tsx    # Beautiful animated loading screen
+│   ├── screens/                 # Screen components
+│   │   └── HomeScreen.tsx       # Main home screen logic
+│   ├── ui/                      # UI components
+│   │   ├── IconSymbol.tsx       # Icon components
+│   │   └── TabBarBackground.tsx # Tab styling
+│   ├── LocalEventCard.tsx       # Event card component
+│   ├── ThemedText.tsx           # Themed text component
+│   └── ...other components
+├── hooks/                       # Custom React hooks
+│   ├── useLocalAgenda.ts        # Agenda data management
+│   ├── useAuth.ts               # Authentication logic
+│   └── ...other hooks
+├── constants/                   # App constants
+│   └── Colors.ts                # Color definitions
+├── assets/                      # Static assets
+│   ├── images/
+│   │   └── GLRLOGO.png          # GLR logo for branding
+│   └── fonts/
+└── styles/                      # Global styles and themes
+```
+
+## 🎨 Design System
+
+### Colors
+- **Primary**: Lime 400 (#84cc16) - GLR brand color
+- **Background**: Slate 900 (#0f172a) - Main dark background
+- **Surface**: Slate 800 (#1e293b) - Card backgrounds
+- **Text**: White/Gray variants for hierarchy
+
+### Components
+- **LoadingScreen**: Animated loading with GLR logo
+- **HomeScreen**: Main agenda view with tabs
+- **LocalEventCard**: Modern event cards with status badges
+- **ThemedText**: Consistent text styling
+
+## 🚀 Getting Started
+
+1. Install dependencies:
    ```bash
    npm install
    ```
 
-2. Start the app
-
+2. Start the development server:
    ```bash
-   npx expo start
+   npm start
    ```
 
-In the output, you'll find options to open the app in a
+3. Open the app:
+   - Press `i` for iOS simulator
+   - Press `a` for Android emulator
+   - Scan QR code with Expo Go app
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## 🔧 Key Improvements Made
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+1. **Beautiful Loading Screen**: Custom animated loading screen with GLR logo
+2. **Modern Dark Theme**: Consistent dark design with lime accents
+3. **Better Code Organization**: Clean folder structure with separation of concerns
+4. **Removed Index Bar**: Fixed header display issues
+5. **Enhanced Event Cards**: Modern card design with status badges and icons
+6. **Improved Navigation**: Better tab switching with icons
+7. **Responsive Design**: Works great on all screen sizes
 
-## Get a fresh project
+## 🛠 Technologies Used
 
-When you're ready, run:
+- **React Native**: Cross-platform mobile development
+- **Expo**: Development platform and tools
+- **NativeWind**: Tailwind CSS for React Native
+- **TypeScript**: Type-safe development
+- **Expo Router**: File-based routing
+- **Expo Vector Icons**: Beautiful icons
 
-```bash
-npm run reset-project
-```
+## 📱 Features
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+- **Today View**: See all events for today
+- **Upcoming View**: View future events
+- **Event Details**: Rich event information with location and description
+- **Status Badges**: Visual indicators for event status
+- **Pull to Refresh**: Easy data refreshing
+- **Floating Action Button**: Quick access to add events
 
-## Learn more
+## 🎯 Performance
 
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Optimized animations with native drivers
+- Efficient state management
+- Smart re-rendering
+- Fast navigation transitions
