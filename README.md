@@ -2,16 +2,16 @@
 
 Een moderne, donkere agenda-app gebouwd met React Native, Expo en NativeWind.
 
-## 🌟 Features
+## Features
 
-- **🎨 Modern Dark Design**: Stijlvolle donkere interface met lime-groene accenten
-- **✨ Beautiful Loading Screen**: Animated loading screen met GLR logo
-- **📱 Responsive**: Werkt perfect op alle schermformaten
-- **🔄 Pull to Refresh**: Trek naar beneden om je agenda te vernieuwen
-- **📅 Smart Filtering**: Filter tussen vandaag en aankomende evenementen
-- **🎯 Clean Architecture**: Goed georganiseerde mappenstructuur
+- ** Modern Dark Design**: Stijlvolle donkere interface met lime-groene accenten
+- ** Beautiful Loading Screen**: Animated loading screen met GLR logo
+- ** Responsive**: Werkt perfect op alle schermformaten
+- ** Pull to Refresh**: Trek naar beneden om je agenda te vernieuwen
+- ** Smart Filtering**: Filter tussen vandaag en aankomende evenementen
+- ** Clean Architecture**: Goed georganiseerde mappenstructuur
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 glragenda/
@@ -57,7 +57,7 @@ glragenda/
 - **LocalEventCard**: Modern event cards with status badges
 - **ThemedText**: Consistent text styling
 
-## 🚀 Getting Started
+##  Getting Started
 
 1. Install dependencies:
    ```bash
@@ -74,7 +74,7 @@ glragenda/
    - Press `a` for Android emulator
    - Scan QR code with Expo Go app
 
-## 🔧 Key Improvements Made
+##  Key Improvements Made
 
 1. **Beautiful Loading Screen**: Custom animated loading screen with GLR logo
 2. **Modern Dark Theme**: Consistent dark design with lime accents
@@ -93,7 +93,7 @@ glragenda/
 - **Expo Router**: File-based routing
 - **Expo Vector Icons**: Beautiful icons
 
-## 📱 Features
+## Features
 
 - **Today View**: See all events for today
 - **Upcoming View**: View future events
@@ -102,7 +102,7 @@ glragenda/
 - **Pull to Refresh**: Easy data refreshing
 - **Floating Action Button**: Quick access to add events
 
-## 🎯 Performance
+## Performance
 
 - Optimized animations with native drivers
 - Efficient state management
