@@ -81,6 +81,29 @@ export default function Index() {
     return agendaItems.filter(item => item.date >= today).length;
   };
 
+  const getNextAppointment = () => {
+    const today = new Date().toISOString().split('T')[0];
+    const upcomingItems = agendaItems
+      .filter(item => item.date >= today)
+      .sort((a, b) => {
+        const dateCompare = a.date.localeCompare(b.date);
+        if (dateCompare === 0) {
+          return a.time.localeCompare(b.time);
+        }
+        return dateCompare;
+      });
+    
+    return upcomingItems.length > 0 ? upcomingItems[0] : null;
+  };
+
+  const formatDateShort = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('nl-NL', {
+      day: 'numeric',
+      month: 'short'
+    });
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-black">
       <StatusBar style="light" />
@@ -111,13 +134,33 @@ export default function Index() {
         
         {/* Stats */}
         <View className="flex-row mt-4 space-x-4 gap-4">
+          <TouchableOpacity 
+            className="bg-gray-900 rounded-xl px-4 py-3 flex-1"
+            onPress={() => {
+              const nextAppointment = getNextAppointment();
+              if (nextAppointment) {
+                setSelectedDate(nextAppointment.date);
+              }
+            }}
+          >
+            <Text className="text-gray-400 text-xs mb-1">Eerstvolgende afspraak:</Text>
+            {getNextAppointment() ? (
+              <View>
+                <Text className="text-[#87fe04] text-sm font-bold" numberOfLines={1}>
+                  {getNextAppointment()!.title}
+                </Text>
+                <Text className="text-white text-xs mt-1">
+                  {formatDateShort(getNextAppointment()!.date)} • {getNextAppointment()!.time}
+                </Text>
+              </View>
+            ) : (
+              <Text className="text-gray-500 text-sm">Geen afspraken</Text>
+            )}
+          </TouchableOpacity>
+          
           <View className="bg-gray-900 rounded-xl px-4 py-2 flex-1">
-            <Text className="text-gray-400 text-xs">Total Items</Text>
+            <Text className="text-gray-400 text-xs">Aantal afspraken</Text>
             <Text className="text-white text-lg font-bold">{getTotalItemsCount()}</Text>
-          </View>
-          <View className="bg-gray-900 rounded-xl px-4 py-2 flex-1">
-            <Text className="text-gray-400 text-xs">Upcoming</Text>
-            <Text className="text-[#87fe04] text-lg font-bold">{getUpcomingItemsCount()}</Text>
           </View>
         </View>
       </View>

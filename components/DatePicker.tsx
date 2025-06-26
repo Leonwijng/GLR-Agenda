@@ -64,7 +64,7 @@ export function DatePicker({ selectedDate, onDateSelect, agendaItems, isModalOpe
             style={{
               minHeight: 55,
               marginBottom: 12,
-              borderBottomWidth: 3,
+              borderBottomWidth: 1,
               borderBottomColor: '#87fe04',
               borderBottomLeftRadius: 16,
               borderBottomRightRadius: 16,
