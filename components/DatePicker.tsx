@@ -52,7 +52,7 @@ export function DatePicker({ selectedDate, onDateSelect, agendaItems }: DatePick
               isSelected ? 'bg-[#87fe04]' : 'bg-gray-800'
             }`}
             style={{
-              minHeight: 56,
+              minHeight: 55,
               marginBottom: 12,
               borderBottomWidth: 3,
               borderBottomColor: '#87fe04',
