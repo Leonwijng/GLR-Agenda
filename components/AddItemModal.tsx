@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, TextInput, Modal, ScrollView, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import React from 'react';
+import { Alert, Modal, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { AgendaItemType } from './AgendaItem';
 
 interface AddItemModalProps {
@@ -144,7 +144,7 @@ export function AddItemModal({ visible, selectedDate, onClose, onAdd }: AddItemM
                       key={option.value}
                       onPress={() => setFormData({...formData, type: option.value})}
                       className={`mr-3 mb-2 px-4 py-3 rounded-xl flex-row items-center ${
-                        isSelected ? 'bg-green-500' : 'bg-gray-800'
+                        isSelected ? 'bg-[#87fe04]' : 'bg-gray-800'
                       }`}
                     >
                       <Ionicons 
@@ -166,7 +166,7 @@ export function AddItemModal({ visible, selectedDate, onClose, onAdd }: AddItemM
             {/* Add Button */}
             <TouchableOpacity
               onPress={handleAdd}
-              className="bg-green-500 rounded-xl p-4 items-center mb-4"
+              className="bg-[#87fe04] rounded-xl p-4 items-center mb-4"
             >
               <Text className="text-black font-bold text-lg">Add Item</Text>
             </TouchableOpacity>

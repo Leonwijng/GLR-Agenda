@@ -1,6 +1,5 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { Alert, Text, TouchableOpacity, View } from 'react-native';
 
 export interface AgendaItemType {
   id: string;
@@ -30,7 +29,7 @@ export function AgendaItemComponent({ item, onDelete }: AgendaItemProps) {
 
   const getTypeColor = (type: AgendaItemType['type']) => {
     switch (type) {
-      case 'class': return 'bg-green-500';
+      case 'class': return 'bg-[#87fe04]';
       case 'assignment': return 'bg-yellow-500';
       case 'exam': return 'bg-red-500';
       case 'meeting': return 'bg-blue-500';
@@ -64,7 +63,7 @@ export function AgendaItemComponent({ item, onDelete }: AgendaItemProps) {
           
           <View className="flex-row items-center mb-1">
             <Ionicons name="book-outline" size={16} color="#10B981" />
-            <Text className="text-green-400 ml-2 font-medium">{item.subject}</Text>
+            <Text className="text-[#87fe04] ml-2 font-medium">{item.subject}</Text>
           </View>
           
           <View className="flex-row items-center mb-1">

@@ -1,59 +1,93 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, Text, TouchableOpacity, View } from 'react-native';
+import { AgendaItemType } from './AgendaItem';
 
 interface DatePickerProps {
   selectedDate: string;
-  onDateSelect: (date: string) => void;
+  onDateSelect: (date: string | null) => void;
+  agendaItems: AgendaItemType[];
 }
 
-export function DatePicker({ selectedDate, onDateSelect }: DatePickerProps) {
-  const getDatesForWeek = () => {
+const DAYS_BATCH_SIZE = 10;
+
+function generateDates(startDate: Date, count: number) {
+  const dates = [];
+  for (let i = 0; i < count; i++) {
+    const date = new Date(startDate);
+    date.setDate(startDate.getDate() + i);
+    dates.push(date.toISOString().split('T')[0]);
+  }
+  return dates;
+}
+
+export function DatePicker({ selectedDate, onDateSelect, agendaItems }: DatePickerProps) {
+  const [visibleDays, setVisibleDays] = useState(DAYS_BATCH_SIZE);
+  const [dates, setDates] = useState<string[]>([]);
+
+  useEffect(() => {
     const today = new Date();
-    const dates = [];
-    
-    for (let i = 0; i < 7; i++) {
-      const date = new Date(today);
-      date.setDate(today.getDate() + i);
-      dates.push(date.toISOString().split('T')[0]);
-    }
-    
-    return dates;
+    setDates(generateDates(today, visibleDays));
+  }, [visibleDays]);
+
+  const getItemsForDate = (date: string) => {
+    return agendaItems.filter(item => item.date === date);
+  };
+
+  const loadMoreDays = () => {
+    setVisibleDays((prev) => prev + DAYS_BATCH_SIZE);
   };
 
   return (
-    <ScrollView horizontal showsHorizontalScrollIndicator={false} className="py-4">
-      <View className="flex-row px-4">
-        {getDatesForWeek().map((date, index) => {
-          const dateObj = new Date(date);
-          const isSelected = date === selectedDate;
-          const isToday = date === new Date().toISOString().split('T')[0];
-          
-          return (
-            <TouchableOpacity
-              key={date}
-              onPress={() => onDateSelect(date)}
-              className={`mx-2 px-4 py-3 rounded-xl min-w-[80px] items-center ${
-                isSelected 
-                  ? 'bg-green-500' 
-                  : isToday 
-                  ? 'bg-gray-800 border border-green-500' 
-                  : 'bg-gray-800'
-              }`}
-            >
-              <Text className={`text-xs font-medium ${
-                isSelected ? 'text-black' : 'text-gray-400'
-              }`}>
-                {dateObj.toLocaleDateString('en-US', { weekday: 'short' })}
+    <FlatList
+      data={dates}
+      keyExtractor={(date) => date}
+      renderItem={({ item: date }) => {
+        const dateObj = new Date(date);
+        const isSelected = date === selectedDate;
+        const items = getItemsForDate(date);
+        return (
+          <TouchableOpacity
+            onPress={() => onDateSelect(isSelected ? null : date)}
+            className={`w-full rounded-xl px-4 py-4 transition-all duration-200 ${
+              isSelected ? 'bg-[#87fe04]' : 'bg-gray-800'
+            }`}
+            style={{
+              minHeight: 56,
+              marginBottom: 12,
+              borderBottomWidth: 3,
+              borderBottomColor: '#87fe04',
+              borderBottomLeftRadius: 16,
+              borderBottomRightRadius: 16,
+            }}
+            activeOpacity={0.8}
+          >
+            <View className="flex-col">
+              <Text className={`text-lg font-bold ${isSelected ? 'text-black' : 'text-white'}`}
+                style={{ textTransform: 'capitalize' }}>
+                {dateObj.toLocaleDateString('nl-NL', { weekday: 'long', day: 'numeric', month: 'long' })}
               </Text>
-              <Text className={`text-lg font-bold ${
-                isSelected ? 'text-black' : 'text-white'
-              }`}>
-                {dateObj.getDate()}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
-    </ScrollView>
+              {items.length > 0 && (
+                <View className="mt-2">
+                  <Text className={`font-bold ${isSelected ? 'text-black' : 'text-[#87fe04]'} text-base`}>{items[0].title}</Text>
+                  <Text className={`text-xs ${isSelected ? 'text-black/70' : 'text-gray-400'} mt-1`}>{items[0].time}</Text>
+                  {items.length > 1 && (
+                    <Text className={`text-xs ${isSelected ? 'text-black/70' : 'text-gray-400'} mt-1`}>+{items.length - 1} meer</Text>
+                  )}
+                </View>
+              )}
+            </View>
+            {isSelected && (
+              <TouchableOpacity onPress={() => onDateSelect(null)} className="absolute top-2 right-2">
+                <Text className="text-black text-2xl font-bold">×</Text>
+              </TouchableOpacity>
+            )}
+          </TouchableOpacity>
+        );
+      }}
+      onEndReached={loadMoreDays}
+      onEndReachedThreshold={0.5}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ paddingHorizontal: 16, paddingVertical: 16 }}
+    />
   );
 }
