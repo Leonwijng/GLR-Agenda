@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Alert, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Platform, Text, TouchableOpacity, View } from 'react-native';
 
 export interface AgendaItemType {
   id: string;
@@ -38,18 +38,27 @@ export function AgendaItemComponent({ item, onDelete }: AgendaItemProps) {
   };
 
   const handleDelete = () => {
-    Alert.alert(
-      'Delete Item',
-      'Are you sure you want to delete this item?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Delete',
-          style: 'destructive',
-          onPress: () => onDelete(item.id)
-        }
-      ]
-    );
+    if (Platform.OS === 'web') {
+      // Web-compatible confirmation
+      const confirmed = window.confirm('Are you sure you want to delete this item?');
+      if (confirmed) {
+        onDelete(item.id);
+      }
+    } else {
+      // Mobile Alert
+      Alert.alert(
+        'Delete Item',
+        'Are you sure you want to delete this item?',
+        [
+          { text: 'Cancel', style: 'cancel' },
+          {
+            text: 'Delete',
+            style: 'destructive',
+            onPress: () => onDelete(item.id)
+          }
+        ]
+      );
+    }
   };
 
   return (
@@ -82,6 +91,7 @@ export function AgendaItemComponent({ item, onDelete }: AgendaItemProps) {
         <TouchableOpacity
           onPress={handleDelete}
           className="ml-4 p-2"
+          style={Platform.OS === 'web' ? { cursor: 'pointer' } : {}}
         >
           <Ionicons name="trash-outline" size={20} color="#EF4444" />
         </TouchableOpacity>

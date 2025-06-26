@@ -3,7 +3,7 @@ import { FlatList, Text, TouchableOpacity, View } from 'react-native';
 import { AgendaItemType } from './AgendaItem';
 
 interface DatePickerProps {
-  selectedDate: string;
+  selectedDate: string | null;
   onDateSelect: (date: string | null) => void;
   agendaItems: AgendaItemType[];
 }

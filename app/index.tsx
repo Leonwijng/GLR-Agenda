@@ -143,7 +143,9 @@ export default function Index() {
         >
           <TouchableOpacity
             activeOpacity={1}
-            onPress={() => {}}
+            onPress={(e) => {
+              e.stopPropagation();
+            }}
             className="bg-gray-900 rounded-t-3xl p-6 max-h-[80%]"
             style={{ width: '100%' }}
           >
@@ -151,7 +153,10 @@ export default function Index() {
               <Text className="text-white text-xl font-bold">
                 {typeof selectedDate === 'string' ? formatDate(selectedDate) : ''}
               </Text>
-              <TouchableOpacity onPress={() => setSelectedDate(null)}>
+              <TouchableOpacity 
+                onPress={() => setSelectedDate(null)}
+                className="p-1"
+              >
                 <Text className="text-white text-3xl font-bold">×</Text>
               </TouchableOpacity>
             </View>
