@@ -6,6 +6,7 @@ interface DatePickerProps {
   selectedDate: string | null;
   onDateSelect: (date: string | null) => void;
   agendaItems: AgendaItemType[];
+  isModalOpen?: boolean;
 }
 
 const DAYS_BATCH_SIZE = 10;
@@ -20,7 +21,7 @@ function generateDates(startDate: Date, count: number) {
   return dates;
 }
 
-export function DatePicker({ selectedDate, onDateSelect, agendaItems }: DatePickerProps) {
+export function DatePicker({ selectedDate, onDateSelect, agendaItems, isModalOpen }: DatePickerProps) {
   const [visibleDays, setVisibleDays] = useState(DAYS_BATCH_SIZE);
   const [dates, setDates] = useState<string[]>([]);
 
@@ -47,7 +48,16 @@ export function DatePicker({ selectedDate, onDateSelect, agendaItems }: DatePick
         const items = getItemsForDate(date);
         return (
           <TouchableOpacity
-            onPress={() => onDateSelect(isSelected ? null : date)}
+            onPress={() => {
+              // If modal is open and we click a different date, select that new date
+              // If modal is open and we click the same date, close it
+              // If modal is closed, open the selected date
+              if (isModalOpen && date !== selectedDate) {
+                onDateSelect(date);
+              } else {
+                onDateSelect(isSelected ? null : date);
+              }
+            }}
             className={`w-full rounded-xl px-4 py-4 transition-all duration-200 ${
               isSelected ? 'bg-[#87fe04]' : 'bg-gray-800'
             }`}

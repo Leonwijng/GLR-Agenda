@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { Image, Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import GLRLogo from '../assets/images/GLRLOGO.png';
@@ -105,7 +105,7 @@ export default function Index() {
             className="bg-[#87fe04] rounded-2xl px-5 py-3 flex-row items-center"
           >
             <Ionicons name="add" size={24} color="black" />
-            <Text className="text-black font-bold ml-2">Add</Text>
+            <Text className="text-black font-bold ml-2">Nieuwe Afspraak</Text>
           </TouchableOpacity>
         </View>
         
@@ -127,58 +127,41 @@ export default function Index() {
         selectedDate={selectedDate}
         onDateSelect={setSelectedDate}
         agendaItems={agendaItems}
+        isModalOpen={!!selectedDate}
       />
 
-      {/* Overlay met agenda-items van geselecteerde dag */}
-      <Modal
-        visible={!!selectedDate}
-        animationType="slide"
-        transparent
-        onRequestClose={() => setSelectedDate(null)}
-      >
-        <TouchableOpacity
-          activeOpacity={1}
-          onPress={() => setSelectedDate(null)}
-          className="flex-1 justify-end"
-        >
-          <TouchableOpacity
-            activeOpacity={1}
-            onPress={(e) => {
-              e.stopPropagation();
-            }}
-            className="bg-gray-900 rounded-t-3xl p-6 max-h-[80%]"
-            style={{ width: '100%' }}
-          >
-            <View className="flex-row items-center justify-between mb-4">
-              <Text className="text-white text-xl font-bold">
-                {typeof selectedDate === 'string' ? formatDate(selectedDate) : ''}
-              </Text>
-              <TouchableOpacity 
-                onPress={() => setSelectedDate(null)}
-                className="p-1"
-              >
-                <Text className="text-white text-3xl font-bold">×</Text>
-              </TouchableOpacity>
-            </View>
-            <ScrollView>
-              {typeof selectedDate === 'string' && getItemsForDate(selectedDate).length > 0 ? (
-                getItemsForDate(selectedDate).map((item) => (
-                  <AgendaItemComponent
-                    key={item.id}
-                    item={item}
-                    onDelete={deleteAgendaItem}
-                  />
-                ))
-              ) : (
-                <View className="items-center justify-center py-8">
-                  <Ionicons name="calendar-outline" size={32} color="#6B7280" />
-                  <Text className="text-gray-400 text-lg font-medium mt-4">Geen afspraken op deze dag</Text>
-                </View>
-              )}
-            </ScrollView>
-          </TouchableOpacity>
-        </TouchableOpacity>
-      </Modal>
+      {/* Overlay met agenda-items van geselecteerde dag - als absolute positioned element */}
+      {selectedDate && (
+        <View className="absolute bottom-0 left-0 right-0 bg-gray-900 rounded-t-3xl p-6 max-h-[80%] z-50">
+          <View className="flex-row items-center justify-between mb-4">
+            <Text className="text-white text-xl font-bold">
+              {formatDate(selectedDate)}
+            </Text>
+            <TouchableOpacity 
+              onPress={() => setSelectedDate(null)}
+              className="p-1"
+            >
+              <Text className="text-white text-3xl font-bold">×</Text>
+            </TouchableOpacity>
+          </View>
+          <ScrollView>
+            {getItemsForDate(selectedDate).length > 0 ? (
+              getItemsForDate(selectedDate).map((item) => (
+                <AgendaItemComponent
+                  key={item.id}
+                  item={item}
+                  onDelete={deleteAgendaItem}
+                />
+              ))
+            ) : (
+              <View className="items-center justify-center py-8">
+                <Ionicons name="calendar-outline" size={32} color="#6B7280" />
+                <Text className="text-gray-400 text-lg font-medium mt-4">Geen afspraken op deze dag</Text>
+              </View>
+            )}
+          </ScrollView>
+        </View>
+      )}
 
       {/* Add Item Modal */}
       <AddItemModal
