@@ -12,10 +12,11 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
+    "@react-native-async-storage/async-storage": "2.1.2",
     "@react-navigation/bottom-tabs": "^7.3.10",
     "@react-navigation/elements": "^2.3.8",
     "@react-navigation/native": "^7.1.6",
-    "@react-native-async-storage/async-storage": "2.1.2",
+    "axios": "^1.7.9",
     "expo": "~53.0.12",
     "expo-auth-session": "~6.1.5",
     "expo-blur": "~14.1.5",
@@ -42,7 +43,7 @@
     "react-native-screens": "~4.11.1",
     "react-native-web": "~0.20.0",
     "react-native-webview": "13.13.5",
-    "axios": "^1.7.9"
+    "undici": "^7.10.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
