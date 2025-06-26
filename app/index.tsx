@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { StatusBar } from 'expo-status-bar';
+import { useEffect, useState } from 'react';
+import { Image, Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
+import GLRLogo from '../assets/images/GLRLOGO.png';
+import { AddItemModal } from '../components/AddItemModal';
 import { AgendaItemComponent, AgendaItemType } from '../components/AgendaItem';
 import { DatePicker } from '../components/DatePicker';
-import { AddItemModal } from '../components/AddItemModal';
 
 export default function Index() {
   const [agendaItems, setAgendaItems] = useState<AgendaItemType[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
+  const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   useEffect(() => {
     loadAgendaItems();
@@ -88,17 +89,20 @@ export default function Index() {
       <View className="px-6 py-4 border-b border-gray-800">
         <View className="flex-row items-center justify-between">
           <View className="flex-row items-center">
-            <View className="w-12 h-12 bg-green-500 rounded-2xl items-center justify-center mr-4">
-              <Ionicons name="calendar" size={28} color="black" />
+            <View className="items-center justify-center mr-4 overflow-hidden">
+              <Image
+                source={GLRLogo}
+                style={{ width: 65, height: 65, resizeMode: 'contain' }}
+              />
             </View>
             <View>
-              <Text className="text-green-400 text-3xl font-bold">GLR</Text>
+              <Text className="text-[#87fe04] text-3xl font-bold">GLR</Text>
               <Text className="text-white text-lg font-light">Agenda</Text>
             </View>
           </View>
           <TouchableOpacity
             onPress={() => setModalVisible(true)}
-            className="bg-green-500 rounded-2xl px-5 py-3 flex-row items-center"
+            className="bg-[#87fe04] rounded-2xl px-5 py-3 flex-row items-center"
           >
             <Ionicons name="add" size={24} color="black" />
             <Text className="text-black font-bold ml-2">Add</Text>
@@ -113,61 +117,68 @@ export default function Index() {
           </View>
           <View className="bg-gray-900 rounded-xl px-4 py-2 flex-1">
             <Text className="text-gray-400 text-xs">Upcoming</Text>
-            <Text className="text-green-400 text-lg font-bold">{getUpcomingItemsCount()}</Text>
+            <Text className="text-[#87fe04] text-lg font-bold">{getUpcomingItemsCount()}</Text>
           </View>
         </View>
       </View>
 
-      {/* Date Selection */}
+      {/* Date Selection (vertical) */}
       <DatePicker
         selectedDate={selectedDate}
         onDateSelect={setSelectedDate}
+        agendaItems={agendaItems}
       />
 
-      {/* Agenda Items */}
-      <ScrollView className="flex-1 px-6">
-        <View className="flex-row items-center justify-between mb-4">
-          <Text className="text-white text-xl font-bold">
-            {formatDate(selectedDate)}
-          </Text>
-          <Text className="text-gray-400 text-sm">
-            {getItemsForDate(selectedDate).length} {getItemsForDate(selectedDate).length === 1 ? 'item' : 'items'}
-          </Text>
-        </View>
-        
-        {getItemsForDate(selectedDate).length === 0 ? (
-          <View className="flex-1 items-center justify-center py-16">
-            <View className="w-16 h-16 bg-gray-800 rounded-2xl items-center justify-center mb-4">
-              <Ionicons name="calendar-outline" size={32} color="#6B7280" />
+      {/* Overlay met agenda-items van geselecteerde dag */}
+      <Modal
+        visible={!!selectedDate}
+        animationType="slide"
+        transparent
+        onRequestClose={() => setSelectedDate(null)}
+      >
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => setSelectedDate(null)}
+          className="flex-1 justify-end"
+        >
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={() => {}}
+            className="bg-gray-900 rounded-t-3xl p-6 max-h-[80%]"
+            style={{ width: '100%' }}
+          >
+            <View className="flex-row items-center justify-between mb-4">
+              <Text className="text-white text-xl font-bold">
+                {typeof selectedDate === 'string' ? formatDate(selectedDate) : ''}
+              </Text>
+              <TouchableOpacity onPress={() => setSelectedDate(null)}>
+                <Text className="text-white text-3xl font-bold">×</Text>
+              </TouchableOpacity>
             </View>
-            <Text className="text-gray-400 text-lg font-medium mb-2">No classes scheduled</Text>
-            <Text className="text-gray-500 text-sm text-center mb-6">
-              Your schedule is free for this day.{'\n'}Tap "Add" to create a new item.
-            </Text>
-            <TouchableOpacity
-              onPress={() => setModalVisible(true)}
-              className="bg-green-500 rounded-xl px-6 py-3"
-            >
-              <Text className="text-black font-bold">Add First Item</Text>
-            </TouchableOpacity>
-          </View>
-        ) : (
-          <View className="pb-6">
-            {getItemsForDate(selectedDate).map((item) => (
-              <AgendaItemComponent
-                key={item.id}
-                item={item}
-                onDelete={deleteAgendaItem}
-              />
-            ))}
-          </View>
-        )}
-      </ScrollView>
+            <ScrollView>
+              {typeof selectedDate === 'string' && getItemsForDate(selectedDate).length > 0 ? (
+                getItemsForDate(selectedDate).map((item) => (
+                  <AgendaItemComponent
+                    key={item.id}
+                    item={item}
+                    onDelete={deleteAgendaItem}
+                  />
+                ))
+              ) : (
+                <View className="items-center justify-center py-8">
+                  <Ionicons name="calendar-outline" size={32} color="#6B7280" />
+                  <Text className="text-gray-400 text-lg font-medium mt-4">Geen afspraken op deze dag</Text>
+                </View>
+              )}
+            </ScrollView>
+          </TouchableOpacity>
+        </TouchableOpacity>
+      </Modal>
 
       {/* Add Item Modal */}
       <AddItemModal
         visible={modalVisible}
-        selectedDate={selectedDate}
+        selectedDate={typeof selectedDate === 'string' ? selectedDate : new Date().toISOString().split('T')[0]}
         onClose={() => setModalVisible(false)}
         onAdd={addAgendaItem}
       />
