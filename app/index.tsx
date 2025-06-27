@@ -124,7 +124,7 @@ export default function Index() {
 
       {/* Date Selection (vertical) */}
       <DatePicker
-        selectedDate={selectedDate}
+        selectedDate={selectedDate ?? ''}
         onDateSelect={setSelectedDate}
         agendaItems={agendaItems}
       />
