@@ -19,7 +19,7 @@ GLR Agenda is een moderne, intuïtieve mobiele applicatie ontworpen voor student
 
 ## 🖼️ Showcase
 <div align="center">
-   <img src="./gifreadme.gif" alt="GLR Agenda App Demo" width="300" />
+   <img src="./gifreadme.gif" alt="GLR Agenda App Demo" width="1000" />
    <p><em>Live demo van de GLR Agenda App in actie</em></p>
 </div>
 
