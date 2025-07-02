@@ -181,6 +181,18 @@ npx eas build --profile production --platform all
 
 
 <div align="center">
-  <p><strong>Gemaakt met ❤️ voor GLR studenten</strong></p>
-  <p><em>© 2025 GLR Agenda App. Alle rechten voorbehouden.</em></p>
+   <p><strong>Gemaakt met ❤️ voor GLR studenten</strong></p>
+   <p><em>© 2025 GLR Agenda App. Alle rechten voorbehouden.</em></p>
+</div>
+
+## 👥 Ontwikkelaars
+
+<div align="center">
+   <a href="https://github.com/SebasGLR">
+      <img src="https://github.com/SebasGLR.png" width="60" height="60" style="border-radius: 50%;" alt="SebasGLR"/>
+   </a>
+   <br>
+   <strong><a href="https://github.com/SebasGLR">@SebasGLR</a></strong>
+   <br>
+   <em>Mede-ontwikkelaar</em>
 </div>
