@@ -45,7 +45,7 @@ GLR Agenda is een moderne, intuïtieve mobiele applicatie ontworpen voor student
 
 1. **Clone de repository**
    ```bash
-   git clone https://github.com/jouw-gebruikersnaam/glragenda.git
+   git clone https://github.com/Leonwijng/GLR-Agenda.git
    cd glragenda
    ```
 
