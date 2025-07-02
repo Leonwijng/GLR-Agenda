@@ -183,22 +183,7 @@ Bijdragen zijn welkom! Volg deze stappen:
 4. **Push** naar de branch (`git push origin feature/geweldige-functie`)
 5. **Open** een Pull Request
 
-## 📄 Licentie
 
-Dit project is gelicentieerd onder de MIT License - zie het [LICENSE](LICENSE) bestand voor details.
-
-## 🙏 Dankbetuigingen
-
-- **Expo Team** voor het geweldige development platform
-- **NativeWind** voor de Tailwind CSS integratie
-- **Ionicons** voor de prachtige pictogrammen
-
-## 📞 Contact & Support
-
-- **Issues**: [GitHub Issues](https://github.com/jouw-gebruikersnaam/glragenda/issues)
-- **Documentatie**: [Wiki](https://github.com/jouw-gebruikersnaam/glragenda/wiki)
-
----
 
 <div align="center">
   <p><strong>Gemaakt met ❤️ voor GLR studenten</strong></p>
