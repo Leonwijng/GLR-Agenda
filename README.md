@@ -17,6 +17,12 @@
 
 GLR Agenda is een moderne, intuïtieve mobiele applicatie ontworpen voor studenten om hun rooster en agenda eenvoudig te beheren. Met een stijlvolle zwart-groene interface en gebruiksvriendelijke functionaliteiten helpt de app je georganiseerd te blijven.
 
+## 🖼️ Showcase
+<div align="center">
+   <img src="./gifreadme.gif" alt="GLR Agenda App Demo" width="300" />
+   <p><em>Live demo van de GLR Agenda App in actie</em></p>
+</div>
+
 ### 🎯 Hoofdfuncties
 
 - 📅 **Weekoverzicht**: Bekijk je rooster per dag met een elegante datumkiezer
@@ -172,17 +178,6 @@ npx eas build --profile development --platform android
 ```bash
 npx eas build --profile production --platform all
 ```
-
-## 🤝 Bijdragen
-
-Bijdragen zijn welkom! Volg deze stappen:
-
-1. **Fork** het project
-2. **Creëer** een feature branch (`git checkout -b feature/geweldige-functie`)
-3. **Commit** je wijzigingen (`git commit -m 'Voeg geweldige functie toe'`)
-4. **Push** naar de branch (`git push origin feature/geweldige-functie`)
-5. **Open** een Pull Request
-
 
 
 <div align="center">
